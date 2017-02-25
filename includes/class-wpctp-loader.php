@@ -18,7 +18,7 @@
  *
  * @package    WPCTP
  * @subpackage WPCTP/includes
- * @author     Your Name <email@example.com>
+ * @author     Jeff Gould <jrgould@gmail.com>
  */
 class WPCTP_Loader {
 

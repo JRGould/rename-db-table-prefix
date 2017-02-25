@@ -17,7 +17,7 @@
  * @since      1.0.0
  * @package    WPCTP
  * @subpackage WPCTP/includes
- * @author     Your Name <email@example.com>
+ * @author     Jeff Gould <jrgould@gmail.com>
  */
 class WPCTP_Deactivator {
 

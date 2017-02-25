@@ -18,7 +18,7 @@
  *
  * @package    WPCTP
  * @subpackage WPCTP/public
- * @author     Your Name <email@example.com>
+ * @author     Jeff Gould <jrgould@gmail.com>
  */
 class WPCTP_Public {
 
