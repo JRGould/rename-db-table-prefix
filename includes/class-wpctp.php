@@ -76,6 +76,8 @@ class WPCTP {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		$this->define_ajax_hooks();
+
 	}
 
 	/**
@@ -119,6 +121,8 @@ class WPCTP {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpctp-public.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpctp-prefix-updater.php';
+
 		$this->loader = new WPCTP_Loader();
 
 	}
@@ -153,6 +157,28 @@ class WPCTP {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
+
+	}
+
+	/**
+	 * Register all AJAX hooks
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_ajax_hooks() {
+
+		$plugin_admin = new WPCTP_Admin( $this->get_wpctp(), $this->get_version() );
+
+		$hooks = [
+			'test',
+		];
+
+		foreach ( $hooks as $hook ) {
+			$this->loader->add_action( 'wp_ajax_wpctp_' . $hook, $plugin_admin, 'ajax_' . $hook );
+		}
+
 
 	}
 
@@ -165,10 +191,10 @@ class WPCTP {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new WPCTP_Public( $this->get_wpctp(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+//		$plugin_public = new WPCTP_Public( $this->get_wpctp(), $this->get_version() );
+//
+//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
 

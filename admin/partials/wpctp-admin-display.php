@@ -11,6 +11,20 @@
  * @package    WPCTP
  * @subpackage WPCTP/admin/partials
  */
+
+global $wpdb;
+
 ?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<div class="wpctp-wrap">
+	<h1> <?php echo __( 'Change Table Prefix', 'wpctp' );?></h1>
+	<form method="post" action="" id="wpctpForm" >
+		<?php wp_nonce_field( 'wpctp-change-table-prefix' ); ?>
+		Current Prefix: <strong><?php echo $wpdb->base_prefix;?></strong><br>
+		<label for="new-prefix">New Prefix:</label>
+		<input type="text" name="new_prefix" value="<?php echo $wpdb->base_prefix;?>">
+		<button type="submit" id="wpctpSubmit" name="submit">Submit</button>
+	</form>
+</div>
+
+	<!-- This file should primarily consist of HTML with a little bit of PHP. -->

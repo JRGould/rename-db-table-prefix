@@ -40,16 +40,28 @@ class WPCTP_Admin {
 	private $version;
 
 	/**
+	 * The user capability required to use this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $cap    The user capability required to use this plugin.
+	 */
+	private $cap;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $wpctp       The name of this plugin.
+	 *
+	 * @param      string    $wpctp      The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
+	 * @param      string    $cap        The user capability required to use this plugin.
 	 */
-	public function __construct( $wpctp, $version ) {
+	public function __construct( $wpctp, $version, $cap = 'import' ) {
 
 		$this->wpctp = $wpctp;
 		$this->version = $version;
+		$this->cap = $cap;
 
 	}
 
@@ -97,6 +109,44 @@ class WPCTP_Admin {
 
 		wp_enqueue_script( $this->wpctp, plugin_dir_url( __FILE__ ) . 'js/wpctp-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function add_menu() {
+		$hook_suffix = add_management_page( 'WP Change Table Prefix',
+			'Change Table Prefix',
+			$this->cap,
+			'wpctp',
+			array( $this, 'options_page' ) );
+	}
+
+	public function options_page() {
+		if( ! current_user_can( $this->cap ) ) {
+			die( 'You must have the "' . $this->cap . '" capability to access this page' );
+		}
+		require_once( plugin_dir_path( __FILE__ ) . 'partials/wpctp-admin-display.php' );
+	}
+
+	public function ajax_test() {
+		if( check_ajax_referer( 'wpctp-change-table-prefix', '_wpnonce', false ) ) {
+			echo "SUCCESSSS";
+		} else {
+			echo "FAIL";
+		}
+
+		print_r( $_POST );
+
+		$newPrefix = $_POST['new_prefix'];
+
+		$newPrefixSanitized = preg_replace( '/[^a-zA-Z0-9\_\-]/', '', $newPrefix );
+
+		if( $newPrefix != $newPrefixSanitized ) {
+			wp_die( __( 'Error: invalid prefix:', 'wpctp' ) . ' ' . $newPrefix . '|' . $newPrefixSanitized  );
+		}
+
+		$updater = new WPCTP_Prefix_Updater( $newPrefixSanitized );
+		$updater->run();
+
+		wp_die();
 	}
 
 }
