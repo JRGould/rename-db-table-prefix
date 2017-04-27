@@ -9,8 +9,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  * @author     Jeff Gould <jrgould@gmail.com>
  */
-class WPCTP {
+class RDTP {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class WPCTP {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      WPCTP_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      RDTP_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,9 +44,9 @@ class WPCTP {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $wpctp    The string used to uniquely identify this plugin.
+	 * @var      string    $rdtp    The string used to uniquely identify this plugin.
 	 */
-	protected $wpctp;
+	protected $rdtp;
 
 	/**
 	 * The current version of the plugin.
@@ -68,7 +68,7 @@ class WPCTP {
 	 */
 	public function __construct() {
 
-		$this->wpctp = 'wpctp';
+		$this->rdtp = 'rdtp';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
@@ -85,10 +85,10 @@ class WPCTP {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - WPCTP_Loader. Orchestrates the hooks of the plugin.
-	 * - WPCTP_i18n. Defines internationalization functionality.
-	 * - WPCTP_Admin. Defines all hooks for the admin area.
-	 * - WPCTP_Public. Defines all hooks for the public side of the site.
+	 * - RDTP_Loader. Orchestrates the hooks of the plugin.
+	 * - RDTP_i18n. Defines internationalization functionality.
+	 * - RDTP_Admin. Defines all hooks for the admin area.
+	 * - RDTP_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -102,35 +102,35 @@ class WPCTP {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpctp-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rdtp-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpctp-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rdtp-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wpctp-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-rdtp-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpctp-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-rdtp-public.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpctp-prefix-updater.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rdtp-prefix-updater.php';
 
-		$this->loader = new WPCTP_Loader();
+		$this->loader = new RDTP_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the WPCTP_i18n class in order to set the domain and to register the hook
+	 * Uses the RDTP_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -138,7 +138,7 @@ class WPCTP {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new WPCTP_i18n();
+		$plugin_i18n = new RDTP_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -153,7 +153,7 @@ class WPCTP {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new WPCTP_Admin( $this->get_wpctp(), $this->get_version() );
+		$plugin_admin = new RDTP_Admin( $this->get_rdtp(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -169,14 +169,14 @@ class WPCTP {
 	 */
 	private function define_ajax_hooks() {
 
-		$plugin_admin = new WPCTP_Admin( $this->get_wpctp(), $this->get_version() );
+		$plugin_admin = new RDTP_Admin( $this->get_rdtp(), $this->get_version() );
 
 		$hooks = [
 			'test',
 		];
 
 		foreach ( $hooks as $hook ) {
-			$this->loader->add_action( 'wp_ajax_wpctp_' . $hook, $plugin_admin, 'ajax_' . $hook );
+			$this->loader->add_action( 'wp_ajax_rdtp_' . $hook, $plugin_admin, 'ajax_' . $hook );
 		}
 
 
@@ -191,7 +191,7 @@ class WPCTP {
 	 */
 	private function define_public_hooks() {
 
-//		$plugin_public = new WPCTP_Public( $this->get_wpctp(), $this->get_version() );
+//		$plugin_public = new RDTP_Public( $this->get_rdtp(), $this->get_version() );
 //
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -214,15 +214,15 @@ class WPCTP {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_wpctp() {
-		return $this->wpctp;
+	public function get_rdtp() {
+		return $this->rdtp;
 	}
 
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    WPCTP_Loader    Orchestrates the hooks of the plugin.
+	 * @return    RDTP_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

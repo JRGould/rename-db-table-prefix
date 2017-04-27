@@ -5,8 +5,8 @@
  *
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  * @author     Jeff Gould <jrgould@gmail.com>
  */
-class WPCTP_Loader {
+class RDTP_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

@@ -5,8 +5,8 @@
  *
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  */
 
 /**
@@ -14,11 +14,11 @@
  *
  * Taken from https://github.com/iandunn/wp-cli-rename-db-prefix/
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  * @author     Jeff Gould <jrgould@gmail.com>
  */
-class WPCTP_Prefix_Updater {
+class RDTP_Prefix_Updater {
 
 	/**
 	 * The old table prefix
@@ -56,7 +56,7 @@ class WPCTP_Prefix_Updater {
 	public function run() {
 		$this->wpdb->show_errors( WP_DEBUG ); // This makes it easier to catch errors while developing this command, but we don't need to show them to users
 		if ( is_multisite() ) {
-			return new WP_Error( __( "This plugin doesn't support MultiSite yet." ), 'wpctp' );
+			return new WP_Error( __( "This plugin doesn't support MultiSite yet." ), 'rdtp' );
 		}
 		try {
 			$this->update_wp_config();
@@ -67,7 +67,7 @@ class WPCTP_Prefix_Updater {
 			// todo set global $table_prefix to new one now, or earlier in process, to avoid errors during shutdown, etc?
 			return true;
 		} catch ( Exception $exception ) {
-			return new WP_Error( __('You should check your site to see if it\'s broken. If it is, you can fix it by restoring your `wp-config.php` file and your database from backups.', 'wpctp') );
+			return new WP_Error( __('You should check your site to see if it\'s broken. If it is, you can fix it by restoring your `wp-config.php` file and your database from backups.', 'rdtp') );
 		}
 	}
 

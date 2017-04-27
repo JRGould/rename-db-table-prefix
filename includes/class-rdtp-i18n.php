@@ -8,8 +8,8 @@
  *
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  */
 
 /**
@@ -19,11 +19,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    WPCTP
- * @subpackage WPCTP/includes
+ * @package    RDTP
+ * @subpackage RDTP/includes
  * @author     Jeff Gould <jrgould@gmail.com>
  */
-class WPCTP_i18n {
+class RDTP_i18n {
 
 
 	/**
@@ -34,7 +34,7 @@ class WPCTP_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wpctp',
+			'rdtp',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

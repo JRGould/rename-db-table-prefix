@@ -8,8 +8,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/public/partials
+ * @package    RDTP
+ * @subpackage RDTP/public/partials
  */
 ?>
 

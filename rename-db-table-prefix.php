@@ -8,20 +8,20 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://jrgould.com/wpctp/
+ * @link              http://jrgould.com/rdtp/
  * @since             1.0.0
- * @package           WPCTP
+ * @package           RDTP
  *
  * @wordpress-plugin
- * Plugin Name:       WP Change Table Prefix
- * Plugin URI:        http://jrgould.com/wpctp/
+ * Plugin Name:       Rename DB Table Prefix
+ * Plugin URI:        http://jrgould.com/rdtp/
  * Description:       Change the table prefix of your WordPress install.
  * Version:           1.0.0
  * Author:            Your Name or Your Company
  * Author URI:        http://jrgoulde.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wpctp
+ * Text Domain:       rdtp
  * Domain Path:       /languages
  */
 
@@ -32,30 +32,30 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wpctp-activator.php
+ * This action is documented in includes/class-rdtp-activator.php
  */
-function activate_wpctp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpctp-activator.php';
-	WPCTP_Activator::activate();
+function activate_rdtp() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-rdtp-activator.php';
+	RDTP_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wpctp-deactivator.php
+ * This action is documented in includes/class-rdtp-deactivator.php
  */
-function deactivate_wpctp() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpctp-deactivator.php';
-	WPCTP_Deactivator::deactivate();
+function deactivate_rdtp() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-rdtp-deactivator.php';
+	RDTP_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wpctp' );
-register_deactivation_hook( __FILE__, 'deactivate_wpctp' );
+register_activation_hook( __FILE__, 'activate_rdtp' );
+register_deactivation_hook( __FILE__, 'deactivate_rdtp' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wpctp.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-rdtp.php';
 
 /**
  * Begins execution of the plugin.
@@ -66,10 +66,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wpctp.php';
  *
  * @since    1.0.0
  */
-function run_wpctp() {
+function run_rdtp() {
 
-	$plugin = new WPCTP();
+	$plugin = new RDTP();
 	$plugin->run();
 
 }
-run_wpctp();
+run_rdtp();

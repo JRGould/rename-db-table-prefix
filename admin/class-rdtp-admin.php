@@ -5,8 +5,8 @@
  *
  * @since      1.0.0
  *
- * @package    WPCTP
- * @subpackage WPCTP/admin
+ * @package    RDTP
+ * @subpackage RDTP/admin
  */
 
 /**
@@ -15,20 +15,20 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    WPCTP
- * @subpackage WPCTP/admin
+ * @package    RDTP
+ * @subpackage RDTP/admin
  * @author     Jeff Gould <jrgould@gmail.com>
  */
-class WPCTP_Admin {
+class RDTP_Admin {
 
 	/**
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $wpctp    The ID of this plugin.
+	 * @var      string    $rdtp    The ID of this plugin.
 	 */
-	private $wpctp;
+	private $rdtp;
 
 	/**
 	 * The version of this plugin.
@@ -53,13 +53,13 @@ class WPCTP_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string    $wpctp      The name of this plugin.
+	 * @param      string    $rdtp      The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 * @param      string    $cap        The user capability required to use this plugin.
 	 */
-	public function __construct( $wpctp, $version, $cap = 'import' ) {
+	public function __construct( $rdtp, $version, $cap = 'import' ) {
 
-		$this->wpctp = $wpctp;
+		$this->rdtp = $rdtp;
 		$this->version = $version;
 		$this->cap = $cap;
 
@@ -76,15 +76,15 @@ class WPCTP_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in WPCTP_Loader as all of the hooks are defined
+		 * defined in RDTP_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The WPCTP_Loader will then create the relationship
+		 * The RDTP_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->wpctp, plugin_dir_url( __FILE__ ) . 'css/wpctp-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->rdtp, plugin_dir_url( __FILE__ ) . 'css/rdtp-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -99,23 +99,23 @@ class WPCTP_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in WPCTP_Loader as all of the hooks are defined
+		 * defined in RDTP_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The WPCTP_Loader will then create the relationship
+		 * The RDTP_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->wpctp, plugin_dir_url( __FILE__ ) . 'js/wpctp-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->rdtp, plugin_dir_url( __FILE__ ) . 'js/rdtp-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
 	public function add_menu() {
-		$hook_suffix = add_management_page( 'WP Change Table Prefix',
-			'Change Table Prefix',
+		$hook_suffix = add_management_page( 'Rename DB Table Prefix',
+			'Rename DB Table Prefix',
 			$this->cap,
-			'wpctp',
+			'rdtp',
 			array( $this, 'options_page' ) );
 	}
 
@@ -123,11 +123,11 @@ class WPCTP_Admin {
 		if( ! current_user_can( $this->cap ) ) {
 			die( 'You must have the "' . $this->cap . '" capability to access this page' );
 		}
-		require_once( plugin_dir_path( __FILE__ ) . 'partials/wpctp-admin-display.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'partials/rdtp-admin-display.php' );
 	}
 
 	public function ajax_test() {
-		if( check_ajax_referer( 'wpctp-change-table-prefix', '_wpnonce', false ) ) {
+		if( check_ajax_referer( 'rdtp-rename-db-table-prefix', '_wpnonce', false ) ) {
 			echo "SUCCESSSS";
 		} else {
 			echo "FAIL";
@@ -140,10 +140,10 @@ class WPCTP_Admin {
 		$newPrefixSanitized = preg_replace( '/[^a-zA-Z0-9\_\-]/', '', $newPrefix );
 
 		if( $newPrefix != $newPrefixSanitized ) {
-			wp_die( __( 'Error: invalid prefix:', 'wpctp' ) . ' ' . $newPrefix . '|' . $newPrefixSanitized  );
+			wp_die( __( 'Error: invalid prefix:', 'rdtp' ) . ' ' . $newPrefix . '|' . $newPrefixSanitized  );
 		}
 
-		$updater = new WPCTP_Prefix_Updater( $newPrefixSanitized );
+		$updater = new RDTP_Prefix_Updater( $newPrefixSanitized );
 		$updater->run();
 
 		wp_die();
