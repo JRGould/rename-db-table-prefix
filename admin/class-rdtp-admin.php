@@ -135,7 +135,7 @@ class RDTP_Admin {
 
 		print_r( $_POST );
 
-		$newPrefix = $_POST['new_prefix'];
+		$newPrefix = $_POST['new-prefix'];
 
 		$newPrefixSanitized = preg_replace( '/[^a-zA-Z0-9\_\-]/', '', $newPrefix );
 

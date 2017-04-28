@@ -18,12 +18,14 @@ global $wpdb;
 
 <div class="rdtp-wrap">
 	<h1> <?php echo __( 'Rename DB Table Prefix', 'rdtp' );?></h1>
-	<form method="post" action="" id="rdtpForm" >
+	<form method="post" action="" id="rdtp-form" >
+		<input type="checkbox" name="confirm-db-backup" id="rdtp-confirm-db-backup">
+		<input type="checkbox" name="confirm-config-backup" id="rdtp-confirm-config-backup">
 		<?php wp_nonce_field( 'rdtp-rename-db-table-prefix' ); ?>
-		Current Prefix: <strong><?php echo $wpdb->base_prefix;?></strong><br>
+		Current Prefix: <strong id="rdtp-current-prefix"><?php echo $wpdb->base_prefix;?></strong><br>
 		<label for="new-prefix">New Prefix:</label>
-		<input type="text" name="new_prefix" value="<?php echo $wpdb->base_prefix;?>">
-		<button type="submit" id="rdtpSubmit" name="submit">Submit</button>
+		<input type="text" name="new-prefix" value="<?php echo $wpdb->base_prefix;?>">
+		<button type="submit" id="rdtp-submit" name="submit">Submit</button>
 	</form>
 </div>
 
