@@ -84,7 +84,7 @@ class RDTP_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->rdtp, plugin_dir_url( __FILE__ ) . 'css/rdtp-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->rdtp, plugin_dir_url( __FILE__ ) . 'dist/rdtp-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -107,7 +107,7 @@ class RDTP_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->rdtp, plugin_dir_url( __FILE__ ) . 'js/rdtp-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->rdtp, plugin_dir_url( __FILE__ ) . 'dist/rdtp-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -147,6 +147,20 @@ class RDTP_Admin {
 		$updater->run();
 
 		wp_die();
+	}
+
+	public function ajax_backup_wp_config() {
+		$wp_config = RDTP_Prefix_Updater::locate_wp_config();
+		if ( $wp_config && is_readable( $wp_config ) ) {
+			$backup_name = 'wp-config.php.' . date( 'Ymd_Gis' ) . '.bak';
+			$backup_path = dirname( $wp_config ) . '/' . $backup_name;
+			if ( copy( $wp_config, $backup_path ) ) {
+				wp_die( json_encode( array( 'success' => sprintf( __( 'Backup created: `%s`'), $backup_path ) ) ) );
+			} else {
+				wp_die( json_encode( array( 'error' => sprintf( __( 'Error: Unable to write backup file to `%s`', 'rdtp' ), dirname( $wp_config ) ) ) ) );
+			}
+		}
+		wp_die( json_encode( array( 'error' => sprintf( __( 'Error: Unable to read wp-config.php file located at `%s`', 'rdtp' ), $wp_config ) ) ) ) ;
 	}
 
 }

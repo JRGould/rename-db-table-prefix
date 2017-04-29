@@ -1,0 +1,79 @@
+.rdtp-wrap{
+	h1{
+		margin-bottom: 2em;
+	}
+	.rdtp-step {
+		box-sizing: border-box;
+		margin: 0;
+		width: 100%;
+		padding: 2em;
+		opacity: .5;
+		transform: translateY( 30px ) scale( .8 ) ;
+		pointer-events: none;
+		font-size: 2em;
+		background: #ccc;
+		//border: 5px solid #fff ;
+		box-shadow: 1px 1px 5px #ccc;
+		color: #333;
+
+		transition: all .3s cubic-bezier(1, 0, 0, 1);
+
+		&.active {
+			pointer-events: auto;
+			opacity: 1;
+			transform: none;
+		}
+
+		&.done {
+			transform: translateY( -20px ) scale( .9 );
+			pointer-events: auto;
+			input, label {
+				pointer-events: none;
+			}
+		}
+
+		p{
+			font-size: 1em;
+			margin: 0;
+			text-align: center;
+
+
+			.title {
+				display: block;
+			}
+
+			label.radio{
+				box-sizing: border-box;
+				border: 2px solid #bbb;
+				background-color: #999 ;
+				padding: .2em .5em;
+				text-align: center;
+				&.checked {
+					background-color: #01D1B2;
+					&.bad, &.error {
+						background-color: #d45c58;
+					}
+				}
+				input[type=radio] {
+					visibility: hidden;
+					position: absolute;
+					pointer-events: none;
+				}
+			}//label.radio
+
+			.backup-response {
+				display: block;
+				font-size: .6em;
+				margin-top: 1em;
+				&.error {
+					color: darken( #d45c58, 10% );
+				}
+				&.success{
+					color: darken( #01d1b2, 10% );
+				}
+			}
+
+		}//p
+	}//rdtp-step
+
+}

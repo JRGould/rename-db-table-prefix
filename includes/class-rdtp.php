@@ -172,7 +172,8 @@ class RDTP {
 		$plugin_admin = new RDTP_Admin( $this->get_rdtp(), $this->get_version() );
 
 		$hooks = [
-			'test',
+			'rename_db_table_prefix',
+		    'backup_wp_config'
 		];
 
 		foreach ( $hooks as $hook ) {

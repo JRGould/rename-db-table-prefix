@@ -95,7 +95,7 @@ class RDTP_Prefix_Updater {
 	 *
 	 * @return bool|string location of wp-config.php file or false if not found
 	 */
-	protected function locate_wp_config() {
+	public static function locate_wp_config() {
 		static $path;
 		if ( null === $path ) {
 			if ( file_exists( ABSPATH . 'wp-config.php' ) )
