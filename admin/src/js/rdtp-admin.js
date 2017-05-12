@@ -3,10 +3,6 @@
 	class RDTP {
 
 		constructor() {
-			this.UIBindings();
-		}
-
-		UIBindings() {
 			this.bindSubmit();
 			this.checkboxButtonClickBinding();
 			this.stepChangedBinding();
@@ -92,26 +88,41 @@
 				let $input = $( e.currentTarget );
 				if ( $input.prop( 'checked' ) ) {
 
+					let nonceVal = $( '#rdtp-backup-wp-config' ).val();
+
 					let req = $.post( window.ajaxurl, {
-						action: 'rdtp_backup_wp_config'
+						action: 'rdtp_backup_wp_config',
+						'rdtp-backup-wp-config': nonceVal
 					} );
 
-					req.done( ( data, status, xhr ) => {
-						let response = JSON.parse( data );
+					req.always( ( data, status, xhr ) => {
+						let response = {};
 						let $responseText = $( '<span/>' ).addClass( 'backup-response' ).removeClass( 'success error' );
 						$input.closest( 'p' ).remove( '.backup-response' ).append( $responseText );
-						if ( response.hasOwnProperty( 'success' ) ) {
-							$responseText.addClass( 'success' ).text( response.success );
-							return;
-						} else {
-							$input.parent().addClass( 'error' );
-							let text = 'An error occurred while attempting to create wp-config.php backup';
-							if ( response.hasOwnProperty( 'error' ) ) {
-								text = response.error;
-							}
-							$responseText.addClass( 'error' ).text( text );
-							this.prevStep();
+
+						try {
+							response = JSON.parse( data );
+						} catch ( e ) {
+							console.log( xhr );
+							response = { error: xhr.responseText };
 						}
+
+						if ( 'success' === status ) {
+							if ( response.hasOwnProperty( 'success' ) ) {
+								$responseText.addClass( 'success' ).text( response.success );
+								return;
+							}
+						}
+
+						// Error state
+						$input.parent().addClass( 'error' );
+						let text = 'An error occurred while attempting to create wp-config.php backup.';
+						if ( response.hasOwnProperty( 'error' ) ) {
+							text += ' "' + response.error + '"';
+						}
+						$responseText.addClass( 'error' ).text( text );
+						this.prevStep();
+
 					} );
 				}
 			} );

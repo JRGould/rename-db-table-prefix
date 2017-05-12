@@ -17,9 +17,10 @@ global $wpdb;
 ?>
 
 <div class="rdtp-wrap wrap">
+	<?php error_log( print_r( [ 'test' ], 1 ) );?>
 	<h1> <?php echo __( 'Rename DB Table Prefix', 'rdtp' );?></h1>
 	<form method="post" action="" id="rdtp-form" >
-		<?php wp_nonce_field( 'rdtp-rename-db-table-prefix' ); ?>
+		<?php wp_nonce_field( 'rdtp-rename-db-table-prefix', 'rdtp-rename-db-table-prefix' ); ?>
 
 		<div id="rdtp-step1" class="rdtp-step active">
 			<p>
@@ -34,7 +35,7 @@ global $wpdb;
 				<strong class="title" >Have you backed up your wp-config.php file?</strong>
 				<label class="radio"><input type="radio" name="confirm-config-backup" id="rdtp-confirm-config-backup" value="true" > <span>Yes.</span></label>
 				<label class="radio"><input type="radio" name="confirm-config-backup" id="rdtp-perform-config-backup" value="false" > <span>No, please do it for me.</span></label>
-				<?php wp_nonce_field( 'rdtp-backup-wp-config' ); ?>
+				<?php wp_nonce_field( 'rdtp-backup-wp-config', 'rdtp-backup-wp-config', false ); ?>
 			</p>
 		</div>
 

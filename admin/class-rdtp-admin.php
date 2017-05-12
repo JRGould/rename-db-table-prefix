@@ -126,31 +126,32 @@ class RDTP_Admin {
 		require_once( plugin_dir_path( __FILE__ ) . 'partials/rdtp-admin-display.php' );
 	}
 
-	public function ajax_test() {
-		if( check_ajax_referer( 'rdtp-rename-db-table-prefix', '_wpnonce', false ) ) {
-			echo "SUCCESSSS";
-		} else {
-			echo "FAIL";
+	public function ajax_rename_db_table_prefix() {
+		if ( ! check_ajax_referer( 'rdtp-rename-db-table-prefix', 'rdtp-rename-db-table-prefix', false ) ) {
+			wp_die( sprintf( __( 'Invalid nonce for "%s"', 'rdtp' ), 'rdtp-rename-db-table-prefix' ) );
 		}
-
-		print_r( $_POST );
 
 		$newPrefix = $_POST['new-prefix'];
 
 		$newPrefixSanitized = preg_replace( '/[^a-zA-Z0-9\_\-]/', '', $newPrefix );
 
 		if( $newPrefix != $newPrefixSanitized ) {
-			wp_die( __( 'Error: invalid prefix:', 'rdtp' ) . ' ' . $newPrefix . '|' . $newPrefixSanitized  );
+			wp_die( __( 'Error: invalid prefix.', 'rdtp' ) );
 		}
 
 		$updater = new RDTP_Prefix_Updater( $newPrefixSanitized );
 		$updater->run();
 
-		wp_die();
+		wp_die( 'success' );
 	}
 
 	public function ajax_backup_wp_config() {
-		$wp_config = RDTP_Prefix_Updater::locate_wp_config();
+		if ( ! check_ajax_referer( 'rdtp-backup-wp-config', 'rdtp-backup-wp-config', false ) ) {
+			wp_die( sprintf( __( 'Invalid nonce for "%s"', 'rdtp' ), 'rdtp-backup-wp-config' ) );
+		}
+
+
+			$wp_config = RDTP_Prefix_Updater::locate_wp_config();
 		if ( $wp_config && is_readable( $wp_config ) ) {
 			$backup_name = 'wp-config.php.' . date( 'Ymd_Gis' ) . '.bak';
 			$backup_path = dirname( $wp_config ) . '/' . $backup_name;
