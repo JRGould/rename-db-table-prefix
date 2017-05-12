@@ -7,7 +7,7 @@
 		margin: 0;
 		width: 100%;
 		padding: 2em;
-		opacity: .5;
+		opacity: 0;
 		transform: translateY( 30px ) scale( .8 ) ;
 		pointer-events: none;
 		font-size: 2em;
@@ -27,6 +27,7 @@
 		&.done {
 			transform: translateY( -20px ) scale( .9 );
 			pointer-events: auto;
+			opacity: .6;
 			input, label {
 				pointer-events: none;
 			}
