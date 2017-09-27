@@ -49,6 +49,6 @@ module.exports = {
 
 if( distMode ) {
 	module.exports.plugins.push (
-		new webpack.optimize.UglifyJSsPlugin()
+		new webpack.optimize.UglifyJsPlugin()
 	);
 }
