@@ -2,11 +2,11 @@
 echo get_version( $argv[1], $argv[2] );
 
 function get_version( $project_dir, $plugin_slug ) {
-	$project_dir = trim( $project_dir );
-	$parent_dir  = $project_dir . '/build-cfg/';
-	$config      = $project_dir . '/build-cfg/' . $plugin_slug . '/config.php';
+	$project_dir        = trim( $project_dir );
+	$parent_dir         = $project_dir . '/build/build-cfg/';
+	$config             = $project_dir . '/build/build-cfg/' . $plugin_slug . '/config.php';
+	$version_check_hook = $project_dir . '/build/build-cfg/' . $plugin_slug . '/version-check.php';
 	include $config;
-	$version_check_hook = $project_dir . '/build-cfg/' . $plugin_slug . '/version-check.php';
 
 	if ( file_exists( $version_check_hook ) ) {
 		include $version_check_hook;

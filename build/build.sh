@@ -38,8 +38,9 @@ function build_plugin() {
     if [[ -d "$PLUGIN_DIR" && ! -L "$PLUGIN_DIR" ]]; then
         if [ "utils" != "$PLUGIN" ] && [ "common" != "$PLUGIN" ];
         then
-            VERSION=$(php -f "$PLUGIN_BUILD_CONFIG_PATH/utils/get_plugin_version.php" "$PROJECT_ROOT" $PLUGIN)
-            ZIP_NAME=$(php -f "$PLUGIN_BUILD_CONFIG_PATH/utils/get_plugin_zip_name.php" "$PROJECT_ROOT" $PLUGIN)
+            VERSION=$(php -f "$PLUGIN_BUILDS_PATH/utils/get_plugin_version.php" "$PROJECT_ROOT" $PLUGIN)
+            echo "VERSION: $VERSION"
+            ZIP_NAME=$(php -f "$PLUGIN_BUILDS_PATH/utils/get_plugin_zip_name.php" "$PROJECT_ROOT" $PLUGIN)
             BUILD_ZIP="$PLUGIN_BUILDS_PATH/$ZIP_NAME-$VERSION.zip";
 
             if [ -f "$BUILD_ZIP" ]
