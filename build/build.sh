@@ -41,7 +41,7 @@ function build_plugin() {
             VERSION=$(php -f "$PLUGIN_BUILDS_PATH/utils/get_plugin_version.php" "$PROJECT_ROOT" $PLUGIN)
             echo "VERSION: $VERSION"
             ZIP_NAME=$(php -f "$PLUGIN_BUILDS_PATH/utils/get_plugin_zip_name.php" "$PROJECT_ROOT" $PLUGIN)
-            BUILD_ZIP="$PLUGIN_BUILDS_PATH/$ZIP_NAME-$VERSION.zip";
+            BUILD_ZIP="$PLUGIN_DIST_PATH/$ZIP_NAME-$VERSION.zip";
 
             if [ -f "$BUILD_ZIP" ]
             then
