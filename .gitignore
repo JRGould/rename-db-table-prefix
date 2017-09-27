@@ -38,3 +38,4 @@ intermediate
 .idea
 cache
 dist
+build/plugin-build
