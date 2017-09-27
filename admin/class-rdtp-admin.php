@@ -145,7 +145,7 @@ class RDTP_Admin {
 		if( is_wp_error( $result ) ) {
 			wp_send_json_error( $result->get_error_message() );
 	    } else {
-			wp_send_json( 'success' );
+			wp_send_json( array( 'success' => true ) );
 		}
 
 
