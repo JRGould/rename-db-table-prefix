@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              http://jrgould.com/rdtp/
- * @since             1.0.0
+ * @since             0.1.0
  * @package           RDTP
  *
  * @wordpress-plugin
  * Plugin Name:       Rename DB Table Prefix
  * Plugin URI:        http://jrgould.com/rdtp/
  * Description:       Change the table prefix of your WordPress install.
- * Version:           1.0.0
+ * Version:           0.1.0
  * Author:            Jeff Gould
  * Author URI:        http://jrgould.com/
  * License:           GPL-2.0+
