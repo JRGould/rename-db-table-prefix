@@ -13,6 +13,7 @@
 			const $form = $( '#rdtp-form' );
 			$form.on( 'submit', ( e ) => {
 				e.preventDefault();
+				$form.find('button[type=submit]').attr( 'disabled', true ).text( 'Working...' );
 				this.handleSubmit( $form );
 			} );
 		}
@@ -34,15 +35,25 @@
 			let req = $.post( window.ajaxurl, data );
 
 			req.done( ( data, status, xhr ) => {
-				console.log( 'done!', status, data );
+				let step4 = $( '#rdtp-step4' );
+				$form.find('button[type=submit]').text('Done');
+				console.log( data.success, data.data );
+				step4.addClass( data.success ? 'success' : 'error' );
+				if( data.success ) {
+					$( '.rdtp-current-prefix' ).first().text( $('#rdtp-step3 input[name=new-prefix]').val() );
+				} else {
+					step4.find( '.error' ).append( '<span class="pre">' + data.data + '</span>' )
+				}
+				this.nextStep();
 			} );
 		}
 
 		getCurrentPrefix() {
-			return $( '#rdtp-current-prefix' ).text();
+			return $( '.rdtp-current-prefix' ).first().text();
 		}
 
 		showError( error ) {
+			// Todo: add visual error display
 			console.log( error );
 		}
 

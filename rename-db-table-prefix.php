@@ -17,8 +17,8 @@
  * Plugin URI:        http://jrgould.com/rdtp/
  * Description:       Change the table prefix of your WordPress install.
  * Version:           1.0.0
- * Author:            Your Name or Your Company
- * Author URI:        http://jrgoulde.com/
+ * Author:            Jeff Gould
+ * Author URI:        http://jrgould.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       rdtp

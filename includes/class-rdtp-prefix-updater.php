@@ -56,18 +56,30 @@ class RDTP_Prefix_Updater {
 	public function run() {
 		$this->wpdb->show_errors( WP_DEBUG ); // This makes it easier to catch errors while developing this command, but we don't need to show them to users
 		if ( is_multisite() ) {
-			return new WP_Error( __( "This plugin doesn't support MultiSite yet." ), 'rdtp' );
+			return new WP_Error( 'rdtp_multisite_err', __( "This plugin doesn't support MultiSite yet." ), 'rdtp' );
 		}
+
+		$progress = array();
 		try {
+			$progress[] = __( 'updating `wp-config.php`', 'rdtp' );
 			$this->update_wp_config();
+
+			$progress[] = __( 'renaming WordPress tables', 'rdtp' );
 			$this->rename_wordpress_tables();
+
+			$progress[] = __( 'updating blog options tables', 'rdtp' );
 			$this->update_blog_options_tables();
+
+			$progress[] = __( 'updating the options table', 'rdtp' );
 			$this->update_options_table();
+
+			$progress[] = __( 'updating the usermeta table', 'rdtp' );
 			$this->update_usermeta_table();
-			// todo set global $table_prefix to new one now, or earlier in process, to avoid errors during shutdown, etc?
+			// TODO: set global $table_prefix to new one now, or earlier in process, to avoid errors during shutdown, etc?
 			return true;
 		} catch ( Exception $exception ) {
-			return new WP_Error( __('You should check your site to see if it\'s broken. If it is, you can fix it by restoring your `wp-config.php` file and your database from backups.', 'rdtp') );
+			// TODO: run reverse operations to attempt to undo errored actions
+			return new WP_Error( 'rdtp_rename_failed', sprintf( __('Failed to rename DB Table Prefix. There was an error when %s. You may need to restore your `wp-config.php` file and your database from your backups.', 'rdtp'), array_pop( $progress ) ) );
 		}
 	}
 

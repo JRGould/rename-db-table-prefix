@@ -12,6 +12,7 @@
  * @subpackage RDTP/admin/partials
  */
 
+// Todo: i18n
 global $wpdb;
 
 ?>
@@ -19,6 +20,7 @@ global $wpdb;
 <div class="rdtp-wrap wrap">
 	<?php error_log( print_r( [ 'test' ], 1 ) );?>
 	<h1> <?php echo __( 'Rename DB Table Prefix', 'rdtp' );?></h1>
+	<h2 class="rdtp-current-prefix-header">Current Prefix: <strong class="rdtp-current-prefix"><?php echo $wpdb->base_prefix;?></strong></h2>
 	<form method="post" action="" id="rdtp-form" >
 		<?php wp_nonce_field( 'rdtp-rename-db-table-prefix', 'rdtp-rename-db-table-prefix' ); ?>
 
@@ -40,10 +42,21 @@ global $wpdb;
 		</div>
 
 		<div id="rdtp-step3" class="rdtp-step">
-			Current Prefix: <strong id="rdtp-current-prefix"><?php echo $wpdb->base_prefix;?></strong><br>
-			<label for="new-prefix">New Prefix:</label>
-			<input type="text" name="new-prefix" value="<?php echo $wpdb->base_prefix . uniqid() . '_';?>">
-			<button type="submit" id="rdtp-submit" name="submit">Submit</button>
+			<p>Current Prefix: <strong class="rdtp-current-prefix"><?php echo $wpdb->base_prefix;?></strong></p>
+			<p>
+				<label for="new-prefix">New Prefix:</label>
+				<input type="text" name="new-prefix" value="<?php echo uniqid( 'wp_', false ) . '_';?>">
+				<button type="submit" id="rdtp-submit" name="submit">Submit</button>
+			</p>
+		</div>
+
+		<div id="rdtp-step4" class="rdtp-step">
+			<p class="success">
+				<strong>Success!</strong> Your table prefix has been changed.
+			</p>
+			<p class="error">
+				<strong>Error.</strong> Something went wrong, your site may be broken and you may need to restore your wp-config.php and database backups.
+			</p>
 		</div>
 
 	</form>

@@ -75,6 +75,23 @@
 			}
 
 		}//p
+
+		.error .pre{
+			font-family: monospace;
+			background-color: rgba( 100,0,0,.5 );
+			padding: .5em;
+			margin-top: 1em;
+			font-size: .6em;
+			color: #fff;
+			display: block;
+		}
+
+		&.success > .error {
+			display: none;
+		}
+		&.error > .success {
+			display: none;
+		}
 	}//rdtp-step
 
 }
