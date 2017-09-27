@@ -37,7 +37,6 @@
 			req.done( ( data, status, xhr ) => {
 				let step4 = $( '#rdtp-step4' );
 				$form.find('button[type=submit]').text('Done');
-				console.log( data.success, data.data );
 				step4.addClass( data.success ? 'success' : 'error' );
 				if( data.success ) {
 					$( '.rdtp-current-prefix' ).first().text( $('#rdtp-step3 input[name=new-prefix]').val() );
