@@ -19,6 +19,7 @@
     "build": "webpack",
     "watch": "npm run build -- --watch",
     "dist": "NODE_ENV=dist npm run build",
-    "plugin-build": "cd build; ./build.sh"
+    "plugin-build": "cd build; ./build.sh",
+    "publish" : "export RDTPPUBLISH=true; npm run plugin-build"
   }
 }

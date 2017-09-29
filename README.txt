@@ -13,7 +13,7 @@ Rename DB Table Prefix does what it says on the tin.
 
 Need to change your table prefix from `wp_` to something else on a site that's already running? Not running a multisite install? Rename DB Table Prefix can probably help.
 
-RDTP's primary functionality is based on the great WP-CLI package, (https://github.com/iandunn/wp-cli-rename-db-prefix)[wp-cli-rename-db-prefix].
+RDTP's primary functionality is based on the great WP-CLI package, [wp-cli-rename-db-prefix](https://github.com/iandunn/wp-cli-rename-db-prefix).
 
 Use at your own risk and make backups before running this plugin - it is entirely possible that this could break your site and you will need to be able to restore your database and `wp-config.php` files from good backups if this happens.
 
